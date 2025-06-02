@@ -11,12 +11,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDUMMYKEY1234567890abcdefghi"/>
             </intent-filter>
         </activity>
         <provider android:authorities="io.hextree.reversingexample.androidx-startup" android:exported="false" android:name="androidx.startup.InitializationProvider">
             <meta-data android:name="androidx.emoji2.text.EmojiCompatInitializer" android:value="androidx.startup"/>
             <meta-data android:name="androidx.lifecycle.ProcessLifecycleInitializer" android:value="androidx.startup"/>
             <meta-data android:name="androidx.profileinstaller.ProfileInstallerInitializer" android:value="androidx.startup"/>
+            <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyEXAMPLEKEY1234567890abcdefghi"/>
         </provider>
         <uses-library android:name="androidx.window.extensions" android:required="false"/>
         <uses-library android:name="androidx.window.sidecar" android:required="false"/>

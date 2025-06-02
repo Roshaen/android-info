@@ -1,10 +1,12 @@
 import os
 import sys
 import json
+import re
 import argparse
 from dotenv import load_dotenv
 
 import xml.etree.ElementTree as ET
+from xml.etree.ElementTree import tostring
 from apkinfo.utils import Utils
 from rich.console import Console
 from apkinfo.vuln import Vuln
@@ -84,6 +86,7 @@ def extract_info(xml, path):
                     else:
                         utils.printText(f' - {activity.attrib[f'{android}name']}')
     print()
+
     utils.printTitle('Vulnerabilities')
     with console.status("Finding Vulnerabilities\n", spinner="dots2"):
         vulnerabilities = vulnerability.find_vulnerabilities(path)
@@ -92,6 +95,17 @@ def extract_info(xml, path):
             utils.printText(f''' {a+1}. Vulnerability :{vuln['name']} \n    - Description : {vuln['description']}''')
             a += 1
 
+    utils.printTitle('API Keys')
+    pattern = r'AIza[0-9A-Za-z\-_]{20,100}'
+    contents = ET.tostring(xml, encoding='unicode')
+    api_key = re.findall(pattern, contents)
+    if(api_key == []):
+        utils.printText(f' - No API key found')
+    else:
+        utils.printText(f' - Google API key found : ')
+        for i in api_key:
+            utils.printText(f' - {i}')
+    print()
 
     
 def decompile_apk(apk_path):
